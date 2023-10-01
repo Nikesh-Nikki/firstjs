@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>List</title>
+    </head>
+
+    <body>
+        <div id="input">
+            <div id="ls">
+                <label for="months">Select a month</label>
+                <select id="months">
+                    <option value="Jan">Jan</option>
+                    <option value="Feb">Feb</option>
+                    <option value="Mar">Mar</option>
+                    <option value="Apr">Apr</option>
+                    <option value="May">May</option>
+                    <option value="Jun">Jun</option>
+                    <option value="Jul">Jul</option>
+                    <option value="Aug">Aug</option>
+                    <option value="Sep">Sep</option>
+                    <option value="Oct">Oct</option>
+                    <option value="Nov">Nov</option>
+                    <option value="Dec">Dec</option>
+                </select>
+            </div>
+            <button>Light Mode</button>
+        </div>
+
+
+        <div id="content">
+            <h1></h1>
+            <div id="wdays">
+                <p style="color: red;">Sun</p>
+                <p>Mon</p>
+                <p>Tue</p>
+                <p>Wed</p>
+                <p>Thu</p>
+                <p>Fri</p>
+                <p>Sat</p>
+            </div>
+
+            <ul id="days">
+
+            </ul>
+        </div>
+
+        <script>
+            const List=document.querySelector("#days");
+            const select=document.querySelector("select");
+            const link=document.querySelector("link");
+            const h1=document.querySelector("h1");
+            const button=document.querySelector("button");
+
+            select.addEventListener("change",update);
+            button.addEventListener("click",changestyle);
+
+            function changestyle(){
+                if(button.textContent="Light Mode"){
+                    link.href="style2.css";
+                    button.textContent="Dark Mode";
+                }
+                else{
+                    link.href="style.css";
+                    button.textContent="Light Mode";
+                }
+            }
+            function update(){
+                const val=select.value;
+                switch(val){
+                    case "Apr":
+                    case "Jun":
+                    case "Sep":
+                    case "Nov":
+                        change(val,30);
+                        break;
+                    case "Feb":
+                        change(val,28);
+                        break;
+                    default:
+                        change(val,31);
+                }
+            }
+            function change(mon,days){
+                List.innerHTML='';
+                h1.textContent=mon;
+                let nspaces;
+                switch(mon){
+                    case "Jan":
+                    case "Oct":
+                        nspaces=0;
+                        break;
+                    case "Feb":
+                    case "Mar":
+                    case "Nov":
+                        nspaces=3;
+                        break;
+                    case "Apr":
+                    case "Jul": 
+                        nspaces=6;
+                        break;
+                    case "May":
+                        nspaces=1;
+                        break;
+                    case "Jun":
+                        nspaces = 4;
+                        break;
+                    case "Aug":
+                        nspaces=2;
+                        break;
+                    default:
+                        nspaces=5;
+                        break;
+                }
+                for(let i=1;i<=nspaces;i++){
+                    const temp=document.createElement("li");
+                    temp.textContent='-';
+                    List.appendChild(temp);
+                }
+                for(let i=1;i<=days;i++){
+                    const temp=document.createElement("li");
+                    temp.textContent=i;
+                    List.appendChild(temp);
+                }
+            }
+        </script>
+    </body>
+</html>
